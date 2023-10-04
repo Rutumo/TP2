@@ -1,6 +1,5 @@
 package fr.eric.tp2.ui.nav
 
-import androidx.annotation.StringRes
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Home
 import androidx.compose.material.icons.filled.Person

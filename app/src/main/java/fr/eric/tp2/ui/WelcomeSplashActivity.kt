@@ -19,6 +19,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
@@ -58,12 +59,10 @@ fun WlcmSplashScreen(modifier: Modifier = Modifier) {
     Box(
         modifier = Modifier
             .fillMaxSize(),
-        //horizontalAlignment = Alignment.CenterHorizontally,
-        //verticalArrangement = Arrangement.Center
     ) {
         Image(
             painter = painterResource(id = R.drawable.img),
-            contentDescription = "Ma photo de profile",
+            contentDescription = "Photo d'accueil",
             modifier = Modifier.matchParentSize()
         )
 
@@ -72,7 +71,7 @@ fun WlcmSplashScreen(modifier: Modifier = Modifier) {
             verticalArrangement = Arrangement.Top,
             ) {
             Text(
-                text = "Welcome to our App",
+                text = stringResource(R.string.welcome),
                 fontWeight = FontWeight.Bold,
                 fontStyle = FontStyle.Italic,
                 fontSize = 25.sp,
@@ -83,7 +82,7 @@ fun WlcmSplashScreen(modifier: Modifier = Modifier) {
     }
 }
 
-@Preview(showBackground = true)
+@Preview
 @Composable
 fun WlcmSplashScreenPreview() {
     TP2Theme {
