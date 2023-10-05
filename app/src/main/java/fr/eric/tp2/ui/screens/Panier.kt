@@ -21,33 +21,26 @@ import fr.eric.tp2.R
 
 @Composable
 fun PanierScreen() {
-    Box(
-        modifier = Modifier
-            .fillMaxSize()
-            .background(Color.White),
-        contentAlignment = Alignment.Center
+    Column(modifier = Modifier.fillMaxSize(),
+        horizontalAlignment = Alignment.CenterHorizontally,
+        verticalArrangement = Arrangement.Top,
     ) {
-        Column(modifier = Modifier.fillMaxSize(),
-            horizontalAlignment = Alignment.CenterHorizontally,
-            verticalArrangement = Arrangement.Top,
-        ) {
-            Text(
-                text = stringResource(R.string.basket),
-                fontWeight = FontWeight.Bold,
-                fontSize = 40.sp,
-                modifier = Modifier.padding(top = 20.dp)
+        Text(
+            text = stringResource(R.string.basket),
+            fontWeight = FontWeight.Bold,
+            fontSize = 40.sp,
+            modifier = Modifier.padding(top = 20.dp)
+        )
+        Text(
+            text = stringResource(R.string.acc_panier),
+            fontStyle = FontStyle.Italic,
+            fontSize = 20.sp,
+            modifier = Modifier.padding(
+                top = 20.dp,
+                start = 5.dp,
+                end = 5.dp
             )
-            Text(
-                text = stringResource(R.string.acc_panier),
-                fontStyle = FontStyle.Italic,
-                fontSize = 20.sp,
-                modifier = Modifier.padding(
-                    top = 20.dp,
-                    start = 5.dp,
-                    end = 5.dp
-                )
-            )
-        }
+        )
     }
 }
 
