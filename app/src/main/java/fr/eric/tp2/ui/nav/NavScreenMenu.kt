@@ -1,42 +1,56 @@
 package fr.eric.tp2.ui.nav
 
-import android.annotation.SuppressLint
-import androidx.compose.foundation.layout.RowScope
-import androidx.compose.material.BottomNavigation
-import androidx.compose.material.BottomNavigationItem
-import androidx.compose.material.ContentAlpha
-import androidx.compose.material.LocalContentColor
-import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.animation.AnimatedVisibility
+import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material3.Icon
-import androidx.compose.material3.Scaffold
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.NavigationRail
+import androidx.compose.material3.NavigationRailItem
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
+import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.navigation.NavDestination
 import androidx.navigation.NavDestination.Companion.hierarchy
 import androidx.navigation.NavGraph.Companion.findStartDestination
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.currentBackStackEntryAsState
-import androidx.navigation.compose.rememberNavController
+import fr.eric.tp2.ui.state.TypesNavigation
 
-
-@OptIn(ExperimentalMaterial3Api::class)
-@SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @Composable
-fun ScreenMenu(){
-    val navController = rememberNavController()
+fun ScreenMenu(navController: NavHostController, navigationType: TypesNavigation) {
+    Row(modifier = Modifier.fillMaxSize()) {
 
-    Scaffold (
-        bottomBar = { BottomBarNav(navController = navController)}
-    ) {
-        BottomNavGraph(navController = navController)
+        AnimatedVisibility(visible = navigationType == TypesNavigation.NAVIGATION_RAIL) {
+            LeftBarNavRail(navController)
+        }
+        Column(
+            modifier = Modifier
+                .fillMaxSize()
+                .background(MaterialTheme.colorScheme.inverseOnSurface)
+        ) {
+            Box(
+                modifier = Modifier
+                    .weight(weight = 1f)
+                    .fillMaxSize()
+            ) {
+                BottomNavGraph(navController = navController)
+            }
+
+            AnimatedVisibility(visible = navigationType == TypesNavigation.BOTTOM_NAVIGATION) {
+                BottomBarNav(navController)
+            }
+        }
     }
-
 }
 
 @Composable
-fun BottomBarNav(navController: NavHostController){
+fun LeftBarNavRail(navController: NavHostController){
     val screens = listOf(
         BottomNavScreen.Home,
         BottomNavScreen.Panier,
@@ -46,11 +60,11 @@ fun BottomBarNav(navController: NavHostController){
     val navBackStackEntry by navController.currentBackStackEntryAsState()
     val currentDestination = navBackStackEntry?.destination
 
-    BottomNavigation {
+    NavigationRail {
         screens.forEach{
                 screen ->
             if (currentDestination != null) {
-                AddItem(
+                AddItemLeft(
                     screen = screen,
                     currentDestination = currentDestination,
                     navController = navController
@@ -60,24 +74,25 @@ fun BottomBarNav(navController: NavHostController){
     }
 }
 
+
 @Composable
-fun RowScope.AddItem(
+fun AddItemLeft(
     screen: BottomNavScreen,
     currentDestination: NavDestination,
     navController: NavHostController
 ){
-    BottomNavigationItem(
+    NavigationRailItem (
+        //alwaysShowLabel = true,
         selected = currentDestination?.hierarchy?.any {it.route == screen.route
         } == true,
-        unselectedContentColor = LocalContentColor.current.copy(alpha = ContentAlpha.disabled),
+        //unselectedContentColor = LocalContentColor.current.copy(alpha = ContentAlpha.disabled),
         onClick = {
             navController.navigate(screen.route){
                 popUpTo(navController.graph.findStartDestination().id){
                     saveState = true
                 }
                 launchSingleTop = true
-                restoreState = true
-
+                //restoreState = true
             }
         },
         icon = {

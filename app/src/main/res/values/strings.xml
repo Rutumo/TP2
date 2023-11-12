@@ -6,6 +6,8 @@
     <string name="profile">Profil</string>
     <string name="welcome">E-COMMERCE</string>
     <string name="connexion">Connectez-vous</string>
+    <string name="hide_password">Hide Password</string>
+    <string name="show_password">Show Password</string>
     <string name="login">Connexion</string>
     <string name="username">Nom d\'utilisateur</string>
     <string name="passwd">Mot de passe</string>

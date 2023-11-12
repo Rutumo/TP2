@@ -1,4 +1,4 @@
-package fr.eric.tp2.ui
+package fr.eric.tp2
 
 import android.content.Intent
 import android.os.Bundle
@@ -24,7 +24,6 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import fr.eric.tp2.R
 import fr.eric.tp2.ui.ui.theme.TP2Theme
 import kotlinx.coroutines.delay
 import kotlin.time.Duration.Companion.seconds
