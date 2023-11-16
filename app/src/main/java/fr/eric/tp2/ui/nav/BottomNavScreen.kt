@@ -1,6 +1,7 @@
 package fr.eric.tp2.ui.nav
 
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.DashboardCustomize
 import androidx.compose.material.icons.filled.Home
 import androidx.compose.material.icons.filled.Person
 import androidx.compose.material.icons.filled.ShoppingCart
@@ -16,6 +17,12 @@ sealed class BottomNavScreen(
         route = "home",
         title = R.string.home,
         icon = Icons.Default.Home
+    )
+
+    object Gestion : BottomNavScreen(
+        route = "gestion",
+        title = R.string.gestion,
+        icon = Icons.Default.DashboardCustomize
     )
 
     object Panier : BottomNavScreen(

@@ -4,6 +4,7 @@ import androidx.compose.runtime.Composable
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
+import fr.eric.tp2.ui.screens.GestionScreen
 import fr.eric.tp2.ui.screens.HomeScreen
 import fr.eric.tp2.ui.screens.PanierScreen
 import fr.eric.tp2.ui.screens.ProfileScreen
@@ -18,6 +19,12 @@ fun BottomNavGraph(navController: NavHostController){
             route = BottomNavScreen.Home.route
         ){
             HomeScreen()
+        }
+
+        composable(
+            route = BottomNavScreen.Gestion.route
+        ){
+            GestionScreen()
         }
 
         composable(
