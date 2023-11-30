@@ -12,15 +12,22 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.compose.rememberNavController
 import androidx.window.layout.WindowInfoTracker
+import androidx.work.Constraints
+import androidx.work.ExistingPeriodicWorkPolicy
+import androidx.work.NetworkType
+import androidx.work.PeriodicWorkRequest
+import androidx.work.WorkManager
 import dagger.hilt.android.AndroidEntryPoint
 import fr.eric.tp2.ui.nav.AdaptiveScreenMenu
 import fr.eric.tp2.ui.state.DevicePosture
 import fr.eric.tp2.ui.state.TypesNavigation
 import fr.eric.tp2.ui.state.getDevicePostureFlow
 import fr.eric.tp2.ui.theme.TP2Theme
+import fr.eric.tp2.workers.UpdateWorker
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.stateIn
+import java.util.concurrent.TimeUnit
 
 @AndroidEntryPoint
 class MainActivity : ComponentActivity() {
@@ -35,8 +42,32 @@ class MainActivity : ComponentActivity() {
                 val navController = rememberNavController()
 
                 AdaptiveScreenMenu(navigationType, navController)
+
             }
         }
+    }
+
+    override fun onResume() {
+        super.onResume()
+
+        val constraints = Constraints.Builder()
+            .setRequiredNetworkType(NetworkType.CONNECTED)
+            .build()
+
+        val periodicRequest = PeriodicWorkRequest.Builder(
+            UpdateWorker::class.java,
+            15,
+            TimeUnit.MINUTES
+        ).setConstraints(constraints)
+            .addTag("UpdateWorker")
+            .build()
+
+        WorkManager.getInstance(this)
+            .enqueueUniquePeriodicWork(
+                "UpdateWorker",
+                ExistingPeriodicWorkPolicy.KEEP,
+                periodicRequest
+            )
     }
 
     private fun getDevicePosture(): StateFlow<DevicePosture> {
@@ -104,3 +135,4 @@ fun ExpandedScreenPreview() {
     AdaptiveScreenMenu(TypesNavigation.PERMANENT_NAVIGATION_DRAWER, navController)
     }
 }
+

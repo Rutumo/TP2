@@ -28,4 +28,7 @@ interface UserDao {
 
     @Delete
     fun delete(user: User)
+
+    @Query("DELETE FROM user WHERE id = (SELECT MIN(id) FROM user)")
+    fun deleteByUser() : Unit
 }

@@ -101,6 +101,10 @@ dependencies {
     implementation("androidx.compose.runtime:runtime-livedata:1.3.2")
     implementation("com.valentinilk.shimmer:compose-shimmer:1.0.0")
     implementation("io.coil-kt:coil-compose:1.3.1")
+
+    val work_version = "2.8.1"
+    // Kotlin + coroutines
+    implementation("androidx.work:work-runtime-ktx:$work_version")
 }
 
 kapt {
